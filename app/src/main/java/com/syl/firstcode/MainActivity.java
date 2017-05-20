@@ -16,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.syl.firstcode.config.Constant;
 import com.syl.firstcode.fragment.FileFragment;
@@ -84,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -91,6 +93,13 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         //交给Toggle去分析并操作绑定的DrawerLayout
         mDrawerToggle.onOptionsItemSelected(item);
+        switch (item.getItemId()) {
+            case R.id.item_data_storage:
+                Toast.makeText(this, "item_data_storage was clicked..", Toast.LENGTH_SHORT).show();
+                break;
+            default:
+                break;
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -110,6 +119,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * 使用FragmentFactory,从FragmentFactory中取出Fragment
+     *
      * @param position
      */
     private void selectItem(int position) {

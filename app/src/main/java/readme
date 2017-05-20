@@ -1,0 +1,5 @@
+ListView作为抽屉菜单的目录控件,如果android:layout_width="300dp",
+设置条目点击事件mLvIndex.setOnItemClickListener()该条目的所有部分
+都可以相应条目点击事件,
+如果android:layout_width="wrap_content"
+设置条目点击事件之后,被点击条目的右侧空白部分不能相应条目点击事件

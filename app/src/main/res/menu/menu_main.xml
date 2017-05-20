@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="@string/item_data_storage"
+          android:id="@+id/item_data_storage"
+          android:showAsAction="ifRoom"
+          android:icon="@mipmap/ic_launcher"
+    />
+    <item android:title="@string/item_data_storage"
+          android:id="@+id/item_data_storage2"
+          android:showAsAction="ifRoom"
+          android:icon="@mipmap/mm6"
+    />
+</menu>
