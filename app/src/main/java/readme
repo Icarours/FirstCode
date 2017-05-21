@@ -3,3 +3,48 @@ ListView作为抽屉菜单的目录控件,如果android:layout_width="300dp",
 都可以相应条目点击事件,
 如果android:layout_width="wrap_content"
 设置条目点击事件之后,被点击条目的右侧空白部分不能相应条目点击事件
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+读取加载资源文件夹中的文件
+InputStream certInput = new BufferedInputStream(getAssets().open(certName));
+--------------------------------------------------------
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+SharedPreferences
+要想使用SharedPreferences来存储数据，首先需要获取到SharedPreferences对象。Android
+中主要提供了三种方法用于得到SharedPreferences 对象。
+1. Context 类中的getSharedPreferences()方法
+此方法接收两个参数，第一个参数用于指定SharedPreferences 文件的名称，如果指
+定的文件不存在则会创建一个，SharedPreferences 文件都是存放在/data/data/<package
+name>/shared_prefs/目录下的。第二个参数用于指定操作模式，主要有两种模式可以选
+择，MODE_PRIVATE 和MODE_MULTI_PROCESS。MODE_PRIVATE 仍然是默认的操
+作模式， 和直接传入0 效果是相同的， 表示只有当前的应用程序才可以对这个
+SharedPreferences 文件进行读写。MODE_MULTI_PROCESS 则一般是用于会有多个进程中
+对同一个SharedPreferences 文件进行读写的情况。类似地，MODE_WORLD_READABLE
+和MODE_WORLD_WRITEABLE 这两种模式已在Android 4.2 版本中被废弃。
+2. Activity 类中的getPreferences()方法
+这个方法和Context 中的getSharedPreferences()方法很相似，不过它只接收一个操
+作模式参数，因为使用这个方法时会自动将当前活动的类名作为SharedPreferences 的文
+件名。
+3. PreferenceManager 类中的getDefaultSharedPreferences()方法
+这是一个静态方法，它接收一个Context 参数，并自动使用当前应用程序的包名作
+为前缀来命名SharedPreferences 文件。
+得到了SharedPreferences 对象之后，就可以开始向SharedPreferences 文件中存储数据了，
+主要可以分为三步实现。
+1. 调用SharedPreferences 对象的edit()方法来获取一个SharedPreferences.Editor 对象。
+2. 向SharedPreferences.Editor 对象中添加数据，比如添加一个布尔型数据就使用
+putBoolean 方法，添加一个字符串则使用putString()方法，以此类推。
+3. 调用commit()方法将添加的数据提交，从而完成数据存储操作。
+
+----------------------------------------------------------------
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+----------------------------------------------------------------
+
+
+
+
+

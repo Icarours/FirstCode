@@ -2,5 +2,27 @@
     <string name="app_name">FirstCode</string>
     <string name="drawer_open">open</string>
     <string name="drawer_close">close</string>
-    <string name="item_data_storage">数据存储</string>
+    <string name="item_navigation">NavigationActivity</string>
+    <string name="title_activity_navigation">NavigationActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="btn_save_file">保存文件</string>
+    <string name="btn_read_file">读取文件</string>
+    <string name="et_content">please enter content</string>
+    <string name="btn_save_file_sp">保存文件sp</string>
+    <string name="btn_read_file_sp">读取文件sp</string>
+    <string name="et_name">姓名</string>
+    <string name="et_age">年龄</string>
+    <string name="is_married">婚否</string>
+    <string name="male">男</string>
+    <string name="female">女</string>
+    <string name="item_test">test</string>
+    <string name="btn_create">create</string>
+    <string name="btn_add">add</string>
+    <string name="btn_delete">delete</string>
+    <string name="btn_query">query</string>
+    <string name="btn_update">update</string>
 </resources>

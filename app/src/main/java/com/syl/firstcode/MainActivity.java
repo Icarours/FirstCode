@@ -1,10 +1,11 @@
 package com.syl.firstcode;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.PersistableBundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -18,7 +19,10 @@ import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.syl.firstcode.activity.NavigationActivity;
+import com.syl.firstcode.base.BaseFragment;
 import com.syl.firstcode.config.Constant;
+import com.syl.firstcode.factory.FragmentFactory;
 import com.syl.firstcode.fragment.FileFragment;
 
 import butterknife.BindView;
@@ -33,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.activity_main)
     DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
+    private BaseFragment mFragment;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +61,10 @@ public class MainActivity extends AppCompatActivity {
         mLvIndex.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (Constant.mFragmentIsActives[position]) {
+                    mDrawerLayout.closeDrawer(mLvIndex);
+                    return;
+                }
                 selectItem(position);
             }
         });
@@ -94,8 +104,10 @@ public class MainActivity extends AppCompatActivity {
         //交给Toggle去分析并操作绑定的DrawerLayout
         mDrawerToggle.onOptionsItemSelected(item);
         switch (item.getItemId()) {
-            case R.id.item_data_storage:
+            case R.id.item_navigation:
                 Toast.makeText(this, "item_data_storage was clicked..", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this, NavigationActivity.class);
+                startActivity(intent);
                 break;
             default:
                 break;
@@ -119,22 +131,30 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * 使用FragmentFactory,从FragmentFactory中取出Fragment
+     * 修改当前条目对应Fragment的状态
      *
      * @param position
      */
     private void selectItem(int position) {
+        for (int i = 0; i < Constant.mFragmentIsActives.length; i++) {
+            Constant.mFragmentIsActives[i] = false;
+        }
         // update the main content by replacing fragments
-        Fragment fragment = new FileFragment();
+        mFragment = FragmentFactory.createFragment(position);
         Bundle args = new Bundle();
         args.putInt(FileFragment.ARG_FILE_NUMBER, position);
-        fragment.setArguments(args);
+        mFragment.setArguments(args);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.fl_content, fragment).commit();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.fl_content, mFragment).commit();
 
         // update selected item and title, then close the drawer
         mLvIndex.setItemChecked(position, true);
         setTitle(Constant.mTitles[position]);
-        mDrawerLayout.closeDrawer(mLvIndex);
+        mDrawerLayout.closeDrawer(mLvIndex);//关闭抽屉菜单
+
+        //修改Fragment对应条目的状态
+        Constant.mFragmentIsActives[position] = true;
     }
 }

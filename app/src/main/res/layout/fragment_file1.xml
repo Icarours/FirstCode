@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <EditText android:id="@+id/et_name"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:hint="@string/et_name"/>
+    </android.support.design.widget.TextInputLayout>
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <EditText android:id="@+id/et_age"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:hint="@string/et_age"/>
+    </android.support.design.widget.TextInputLayout>
+    <CheckBox android:id="@+id/cb_is_married"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="@string/is_married"/>
+    <RadioGroup android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:id="@+id/rg_gender"
+                android:orientation="horizontal" android:checkedButton="@+id/rb_female">
+        <RadioButton android:id="@+id/rb_male"
+                     android:layout_width="0dp"
+                     android:layout_height="wrap_content"
+                     android:layout_weight="1"
+                     android:text="@string/male"/>
+        <RadioButton android:id="@+id/rb_female"
+                     android:layout_width="0dp"
+                     android:layout_height="wrap_content"
+                     android:layout_weight="1"
+                     android:text="@string/female"/>
+    </RadioGroup>
+    <TextView android:id="@+id/tv_content"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="@string/app_name"/>
+    <Button android:id="@+id/btn_save_file"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="click"
+            android:text="@string/btn_save_file_sp"/>
+    <Button android:id="@+id/btn_read_file"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="click"
+            android:text="@string/btn_read_file_sp"/>
+</LinearLayout>
