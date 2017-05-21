@@ -28,21 +28,19 @@ import java.util.List;
 public class CPFragment extends BaseFragment {
     private static final int MY_CPFRAGMENT_PERMISSION_CODE = 4;
     List<String> mContacts = new ArrayList<>();
-    private View mRootView;
-    private ListView mLvContacts;
 
     @Override
     public View initView() {
-        mRootView = View.inflate(getContext(), R.layout.fragment_cp, null);
-        mLvContacts = (ListView) mRootView.findViewById(R.id.lv_contacts);
-        mLvContacts.setAdapter(new ArrayAdapter<>(getContext(), R.layout.support_simple_spinner_dropdown_item, mContacts));
+        View rootView = View.inflate(getContext(), R.layout.fragment_cp, null);
+        ListView lvContacts = (ListView) rootView.findViewById(R.id.lv_contacts);
+        lvContacts.setAdapter(new ArrayAdapter<>(getContext(), R.layout.support_simple_spinner_dropdown_item, mContacts));
         //如果没有动态权限,需要手动获取
         if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED ||
                 (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_CONTACTS)) != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(new String[]{Manifest.permission.READ_CONTACTS, Manifest.permission.WRITE_CONTACTS}, MY_CPFRAGMENT_PERMISSION_CODE);
         }
         getContacts();
-        return mRootView;
+        return rootView;
     }
 
     /**
