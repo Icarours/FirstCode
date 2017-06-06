@@ -5,7 +5,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.2'
+        classpath 'com.android.tools.build:gradle:2.3.2'
         //使用dagger2需要添加多处设置1,
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'//使用butterKnife需要添加多处设置1,
 

@@ -19,33 +19,44 @@ public abstract class BaseFragment extends Fragment {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        init();
+        init();//
         super.onCreate(savedInstanceState);
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return initView();
+        return initView();//初始化视图
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        initData();
-        initListener();
+        initData();//初始化数据
+        initListener();//初始化监听
         super.onActivityCreated(savedInstanceState);
     }
 
+    /**
+     * 初始化视图 onCreateView()
+     *
+     * @return
+     */
     public abstract View initView();
 
     public void init() {
 
     }
 
+    /**
+     * 初始化数据
+     */
     public void initData() {
 
     }
 
+    /**
+     * 初始化监听
+     */
     public void initListener() {
 
     }

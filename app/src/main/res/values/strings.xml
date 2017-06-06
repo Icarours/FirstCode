@@ -25,4 +25,9 @@
     <string name="btn_delete">delete</string>
     <string name="btn_query">query</string>
     <string name="btn_update">update</string>
+    <string name="load">加载</string>
+    <string name="load_pull">加载(pull解析)</string>
+    <string name="load_sax">加载(sax解析)</string>
+    <string name="load_json">加载(json解析)</string>
+    <string name="load_gson">加载(gson解析)</string>
 </resources>

@@ -16,7 +16,22 @@ public class Constant {
             "文件存储sqlite",
             "RadioButton/RadioGroup",
             "ContentProvider/联系人",
+            "WebView",
+            "HttpURLConnection",
+            "okHttp_xml",
+            "okHttp_json",
     };
     //Fragment的状态,是否处于运行状态
-    public static boolean[] mFragmentIsActives = {false, false, false, false, false};
+    public static boolean[] mFragmentIsActives = {false, false, false, false,
+            false,
+            false,
+            false,
+            false,
+            false,};
+
+    public static class URLS {
+        public static final String BASEURL = "http://192.168.123.133:8080/";
+        public static final String XML_URL = BASEURL + "text/get_data.txt";
+        public static final String JSON_URL = BASEURL + "text/get_data.json";
+    }
 }

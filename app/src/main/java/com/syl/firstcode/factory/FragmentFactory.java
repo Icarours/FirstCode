@@ -7,7 +7,11 @@ import com.syl.firstcode.fragment.CPFragment;
 import com.syl.firstcode.fragment.FileFragment;
 import com.syl.firstcode.fragment.FileFragment1;
 import com.syl.firstcode.fragment.FileFragment2;
+import com.syl.firstcode.fragment.HttpURLFragment;
+import com.syl.firstcode.fragment.OkHttpJsonFragment;
+import com.syl.firstcode.fragment.OkHttpXmlFragment;
 import com.syl.firstcode.fragment.RgFragment;
+import com.syl.firstcode.fragment.WVFragment;
 
 /**
  * Created by Bright on 2017/5/20.
@@ -44,7 +48,19 @@ public class FragmentFactory {
                 baseFragment = new RgFragment();//3RadioButton/RadioGroup
                 break;
             case 4:
-                baseFragment = new CPFragment();//3RadioButton/RadioGroup
+                baseFragment = new CPFragment();//4ContentProvider
+                break;
+            case 5:
+                baseFragment = new WVFragment();//5WebView
+                break;
+            case 6:
+                baseFragment = new HttpURLFragment();//6HttpURLConnection
+                break;
+            case 7:
+                baseFragment = new OkHttpXmlFragment();//7okHttp_xml
+                break;
+            case 8:
+                baseFragment = new OkHttpJsonFragment();//8okHttp_json
                 break;
             default:
                 break;
