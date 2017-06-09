@@ -19,7 +19,7 @@
     <string name="is_married">婚否</string>
     <string name="male">男</string>
     <string name="female">女</string>
-    <string name="item_test">test</string>
+    <string name="item_parcelable">parcelable传递数据</string>
     <string name="btn_create">create</string>
     <string name="btn_add">add</string>
     <string name="btn_delete">delete</string>
@@ -30,4 +30,5 @@
     <string name="load_sax">加载(sax解析)</string>
     <string name="load_json">加载(json解析)</string>
     <string name="load_gson">加载(gson解析)</string>
+    <string name="item_serializable">serializable传递数据</string>
 </resources>

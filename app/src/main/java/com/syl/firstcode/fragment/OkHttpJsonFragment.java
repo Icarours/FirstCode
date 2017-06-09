@@ -72,7 +72,8 @@ public class OkHttpJsonFragment extends BaseFragment implements View.OnClickList
      * json解析
      */
     private void loadJson() {
-        mTvContent.setBackgroundColor(getResources().getColor(R.color.colorPrimary));//主要是为了分辨使用了不同的数据解析方法
+        //主要是为了分辨使用了不同的数据解析方法
+        mTvContent.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
         OkHttpClient okHttpClient = new OkHttpClient();
         String url = Constant.URLS.JSON_URL;
         Request request = new Request.Builder()
@@ -133,6 +134,8 @@ public class OkHttpJsonFragment extends BaseFragment implements View.OnClickList
      * Gson解析,开启子线程,异步网络请求
      */
     private void loadGson() {
+        //主要是为了分辨使用了不同的数据解析方法
+        mTvContent.setBackgroundColor(getResources().getColor(R.color.colorAccent));
         new Thread() {
             @Override
             public void run() {

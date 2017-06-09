@@ -5,9 +5,14 @@
           android:showAsAction="ifRoom"
           android:title="@string/item_navigation"
     />
-    <item android:id="@+id/item_test"
+    <item android:id="@+id/item_parcelable"
           android:icon="@mipmap/mm6"
           android:showAsAction="ifRoom"
-          android:title="@string/item_test"
+          android:title="@string/item_parcelable"
+    />
+    <item android:id="@+id/item_serializable"
+          android:icon="@mipmap/mm1"
+          android:showAsAction="ifRoom"
+          android:title="@string/item_serializable"
     />
 </menu>

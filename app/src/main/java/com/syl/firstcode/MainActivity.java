@@ -20,7 +20,10 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.syl.firstcode.activity.NavigationActivity;
+import com.syl.firstcode.activity.SecondActivity;
 import com.syl.firstcode.base.BaseFragment;
+import com.syl.firstcode.bean.App;
+import com.syl.firstcode.bean.Person;
 import com.syl.firstcode.config.Constant;
 import com.syl.firstcode.factory.FragmentFactory;
 import com.syl.firstcode.fragment.FileFragment;
@@ -28,8 +31,17 @@ import com.syl.firstcode.fragment.FileFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+/**
+ * author   Bright
+ * date     2017/6/6 15:20
+ * desc
+ * toolBar和DrawerLayout控制主界面
+ * ToolBar的使用
+ */
 public class MainActivity extends AppCompatActivity {
 
+    private static final int FLAG_PARCELABLE = 1;//跳转到SecondActivity时intent的flag标记
+    private static final int FLAG_SERIALIZABLE = 2;//跳转到SecondActivity时intent的flag标记
     @BindView(R.id.fl_content)
     FrameLayout mFlContent;
     @BindView(R.id.lv_index)
@@ -38,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
     DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
     private BaseFragment mFragment;
+    private int mCurrentPosition;//记录选中的位置
 
 
     @Override
@@ -79,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
                 R.string.drawer_open, R.string.drawer_close) {
             @Override
             public void onDrawerClosed(View drawerView) {
-                getSupportActionBar().setTitle("内容标题");
+                getSupportActionBar().setTitle(Constant.mTitles[mCurrentPosition]);
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
 
@@ -109,10 +122,44 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(this, NavigationActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.item_parcelable:
+                transferDataWithParcelable();//使用Parcelable接口传递数据
+                break;
+            case R.id.item_serializable:
+                transferDataWithSerializable();//使用Serializable接口传递数据
+                break;
             default:
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * 使用Serializable接口传递数据
+     */
+    private void transferDataWithSerializable() {
+        App app = new App();
+        app.setName("android");
+        app.setVersion("1.0");
+        app.setId("111");
+        Intent intent = new Intent(MainActivity.this, SecondActivity.class);
+        intent.addFlags(FLAG_SERIALIZABLE);//添加flag,区分传递的是哪个数据
+        intent.putExtra("app_data", app);
+        startActivity(intent);
+    }
+
+    /**
+     * 使用Parcelable接口传递数据
+     */
+    private void transferDataWithParcelable() {
+        Person person = new Person();
+        person.setName("zs");
+        person.setAge(23);
+        person.setHeight(167);
+        Intent intent = new Intent(MainActivity.this, SecondActivity.class);
+        intent.addFlags(FLAG_PARCELABLE);//添加flag,区分传递的是哪个数据
+        intent.putExtra("person_data", person);
+        startActivity(intent);
     }
 
     @Override
@@ -136,6 +183,7 @@ public class MainActivity extends AppCompatActivity {
      * @param position
      */
     private void selectItem(int position) {
+        mCurrentPosition = position;
         for (int i = 0; i < Constant.mFragmentIsActives.length; i++) {
             Constant.mFragmentIsActives[i] = false;
         }

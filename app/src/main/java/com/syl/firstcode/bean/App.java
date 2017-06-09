@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Created by Bright on 2017/5/30.
  *
- * @Describe app bean
+ * @Describe app bean实例,实现Serializable,方便实例对象传递
  * @Called
  */
 

@@ -39,7 +39,7 @@ import okhttp3.Response;
 /**
  * Created by Bright on 2017/5/30.
  *
- * @Describe okHttp,xml文件
+ * @Describe okHttp, xml文件
  * @Called
  */
 
@@ -48,7 +48,7 @@ public class OkHttpXmlFragment extends BaseFragment implements View.OnClickListe
     private static final String TAG = OkHttpXmlFragment.class.getSimpleName();
     private View mRootView;
     private TextView mTvContent;
-    private List<App> mAppList = new ArrayList<>();
+    private List<App> mAppList;
 
     @Override
     public View initView() {
@@ -82,6 +82,8 @@ public class OkHttpXmlFragment extends BaseFragment implements View.OnClickListe
      * ,数据加载,sax解析
      */
     private void loadSax() {
+        //主要是为了分辨使用了不同的数据解析方法
+        mTvContent.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
         //1.创建OkHttpClient
         OkHttpClient okHttpClient = new OkHttpClient();
         //2.创建请求体RequestBody,请求体可以为空
@@ -138,6 +140,9 @@ public class OkHttpXmlFragment extends BaseFragment implements View.OnClickListe
      * ,数据加载,pull解析
      */
     private void loadPull() {
+        mAppList = new ArrayList<>();
+        //主要是为了分辨使用了不同的数据解析方法
+        mTvContent.setBackgroundColor(getResources().getColor(R.color.colorAccent));
         //1.创建OkHttpClient
         OkHttpClient okHttpClient = new OkHttpClient();
         //2.创建请求体RequestBody,请求体可以为空
@@ -185,6 +190,8 @@ public class OkHttpXmlFragment extends BaseFragment implements View.OnClickListe
                         mTvContent.setText(sb.toString());
                     }
                 });
+                //在子线程解析加载完成数据之后,将mAppList置空,否则,每次点击button都会在TextView中添加mAppList中的数据
+                mAppList = null;
             }
         });
     }

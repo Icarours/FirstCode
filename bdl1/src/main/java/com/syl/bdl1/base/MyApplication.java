@@ -15,9 +15,9 @@ public class MyApplication extends Application {
 
     @Override
     public void onCreate() {
+        //必须保证调用super.onCreate();
         super.onCreate();
         //SDKInitializer.initialize(getApplicationContext());，因此我们建议该方法放在Application的初始化方法中
         SDKInitializer.initialize(this);
     }
-
 }

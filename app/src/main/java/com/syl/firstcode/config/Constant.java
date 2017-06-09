@@ -28,6 +28,8 @@ public class Constant {
             false,
             false,
             false,};
+    //控制日志打印工具是否打印日志
+    public static boolean isLog = true;
 
     public static class URLS {
         public static final String BASEURL = "http://192.168.123.133:8080/";
