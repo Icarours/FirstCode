@@ -21,11 +21,13 @@ public class WVFragment extends BaseFragment {
 
     @Override
     public View initView() {
+
         mRootView = View.inflate(getContext(), R.layout.fragment_wv, null);
         WebView wv = (WebView) mRootView.findViewById(R.id.wv);
         wv.getSettings().setJavaScriptEnabled(true);
         wv.setWebViewClient(new WebViewClient());
         wv.loadUrl("http://www.baidu.com");//URL必须带上http://,否则显示不出来
+
         return mRootView;
     }
 }

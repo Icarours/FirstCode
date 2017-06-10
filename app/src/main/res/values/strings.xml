@@ -31,4 +31,7 @@
     <string name="load_json">加载(json解析)</string>
     <string name="load_gson">加载(gson解析)</string>
     <string name="item_serializable">serializable传递数据</string>
+    <string name="btn_intent_service">intent_service</string>
+    <string name="btn_intent_activity">intent_activity</string>
+    <string name="btn_intent_receiver">intent_receiver</string>
 </resources>

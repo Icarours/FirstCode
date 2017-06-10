@@ -1,1 +1,1 @@
-include ':app', ':bdl1'
+include ':app', ':bdl1', ':weatherforecast'

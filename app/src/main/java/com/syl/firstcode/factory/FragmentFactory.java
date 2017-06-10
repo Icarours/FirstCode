@@ -3,6 +3,7 @@ package com.syl.firstcode.factory;
 import android.util.SparseArray;
 
 import com.syl.firstcode.base.BaseFragment;
+import com.syl.firstcode.fragment.AlarmFragment;
 import com.syl.firstcode.fragment.CPFragment;
 import com.syl.firstcode.fragment.FileFragment;
 import com.syl.firstcode.fragment.FileFragment1;
@@ -61,6 +62,9 @@ public class FragmentFactory {
                 break;
             case 8:
                 baseFragment = new OkHttpJsonFragment();//8okHttp_json
+                break;
+            case 9:
+                baseFragment = new AlarmFragment();//9alarm机制
                 break;
             default:
                 break;

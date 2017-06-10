@@ -1,5 +1,6 @@
 package com.syl.firstcode.fragment;
 
+import android.app.ProgressDialog;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -72,6 +73,10 @@ public class OkHttpJsonFragment extends BaseFragment implements View.OnClickList
      * json解析
      */
     private void loadJson() {
+        final ProgressDialog progressDialog = new ProgressDialog(getContext());
+        progressDialog.setTitle("loading");
+        progressDialog.setMessage("please wait,loading .....");
+        progressDialog.show();
         //主要是为了分辨使用了不同的数据解析方法
         mTvContent.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
         OkHttpClient okHttpClient = new OkHttpClient();
@@ -99,6 +104,7 @@ public class OkHttpJsonFragment extends BaseFragment implements View.OnClickList
                             stringBuilder.append(mAppArrayList.get(i) + "\r\n");
                         }
                         mTvContent.setText(stringBuilder.toString());
+                        progressDialog.dismiss();
                     }
                 });
             }
@@ -134,6 +140,10 @@ public class OkHttpJsonFragment extends BaseFragment implements View.OnClickList
      * Gson解析,开启子线程,异步网络请求
      */
     private void loadGson() {
+        final ProgressDialog progressDialog = new ProgressDialog(getContext());
+        progressDialog.setTitle("loading");
+        progressDialog.setMessage("please wait,loading .....");
+        progressDialog.show();
         //主要是为了分辨使用了不同的数据解析方法
         mTvContent.setBackgroundColor(getResources().getColor(R.color.colorAccent));
         new Thread() {
@@ -155,6 +165,7 @@ public class OkHttpJsonFragment extends BaseFragment implements View.OnClickList
                         @Override
                         public void run() {
                             mTvContent.setText(stringBuilder.toString());
+                            progressDialog.dismiss();
                         }
                     });
                 } catch (IOException e) {

@@ -20,9 +20,11 @@ public class Constant {
             "HttpURLConnection",
             "okHttp_xml",
             "okHttp_json",
+            "Alarm机制",
     };
     //Fragment的状态,是否处于运行状态
     public static boolean[] mFragmentIsActives = {false, false, false, false,
+            false,
             false,
             false,
             false,
@@ -32,7 +34,7 @@ public class Constant {
     public static boolean isLog = true;
 
     public static class URLS {
-        public static final String BASEURL = "http://192.168.123.133:8080/";
+        public static final String BASEURL = "http://192.168.31.133:8080/";
         public static final String XML_URL = BASEURL + "text/get_data.txt";
         public static final String JSON_URL = BASEURL + "text/get_data.json";
     }

@@ -1,5 +1,6 @@
 package com.syl.firstcode.fragment;
 
+import android.app.ProgressDialog;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -82,6 +83,11 @@ public class OkHttpXmlFragment extends BaseFragment implements View.OnClickListe
      * ,数据加载,sax解析
      */
     private void loadSax() {
+        //此处的Context不能使用MyApplication.getContext(),否则会报错
+        final ProgressDialog progressDialog = new ProgressDialog(getContext());
+        progressDialog.setTitle("loading");
+        progressDialog.setMessage("please wait! loading .....");
+        progressDialog.show();
         //主要是为了分辨使用了不同的数据解析方法
         mTvContent.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
         //1.创建OkHttpClient
@@ -129,6 +135,7 @@ public class OkHttpXmlFragment extends BaseFragment implements View.OnClickListe
                     @Override
                     public void run() {
                         mTvContent.setText(sb.toString());
+                        progressDialog.dismiss();
                     }
                 });
             }
@@ -140,6 +147,11 @@ public class OkHttpXmlFragment extends BaseFragment implements View.OnClickListe
      * ,数据加载,pull解析
      */
     private void loadPull() {
+        //此处的Context不能使用MyApplication.getContext(),否则会报错
+        final ProgressDialog progressDialog = new ProgressDialog(getContext());
+        progressDialog.setTitle("loading");
+        progressDialog.setMessage("please wait! loading .....");
+        progressDialog.show();
         mAppList = new ArrayList<>();
         //主要是为了分辨使用了不同的数据解析方法
         mTvContent.setBackgroundColor(getResources().getColor(R.color.colorAccent));
@@ -188,6 +200,7 @@ public class OkHttpXmlFragment extends BaseFragment implements View.OnClickListe
                     @Override
                     public void run() {
                         mTvContent.setText(sb.toString());
+                        progressDialog.dismiss();
                     }
                 });
                 //在子线程解析加载完成数据之后,将mAppList置空,否则,每次点击button都会在TextView中添加mAppList中的数据
