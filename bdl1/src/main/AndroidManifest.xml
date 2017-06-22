@@ -65,6 +65,8 @@
             android:name=".activity.ShowMeActivity"
             android:theme="@style/Transparent">
         </activity>
+        <activity android:name=".activity.Main2Activity">
+        </activity>
     </application>
 
 </manifest>
