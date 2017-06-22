@@ -20,6 +20,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.syl.firstcode.activity.NavigationActivity;
+import com.syl.firstcode.activity.RefreshActivity;
 import com.syl.firstcode.activity.SecondActivity;
 import com.syl.firstcode.base.BaseFragment;
 import com.syl.firstcode.bean.App;
@@ -128,10 +129,21 @@ public class MainActivity extends AppCompatActivity {
             case R.id.item_serializable:
                 transferDataWithSerializable();//使用Serializable接口传递数据
                 break;
+            case R.id.item_refresh:
+                refreshActivity();//启动RefreshActivity
+                break;
             default:
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * 启动RefreshActivity
+     */
+    private void refreshActivity() {
+        Intent intent = new Intent(this, RefreshActivity.class);
+        startActivity(intent);
     }
 
     /**

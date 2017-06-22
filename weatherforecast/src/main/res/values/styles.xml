@@ -7,4 +7,8 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+    <style name="MyFullscreen" parent="Theme.AppCompat.NoActionBar">
+        <!--将Activity的Theme设置成全屏-->
+        <item name="android:windowFullscreen">true</item>
+    </style>
 </resources>

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.syl.bdl1.activity.Main2Activity">
-<ImageView android:layout_width="match_parent"
-           android:src="@mipmap/mm2"
-           android:layout_height="wrap_content"/>
+    <ImageView android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:src="@mipmap/mm2"/>
 </android.support.constraint.ConstraintLayout>

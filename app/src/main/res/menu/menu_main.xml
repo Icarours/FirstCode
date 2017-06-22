@@ -15,4 +15,9 @@
           android:showAsAction="ifRoom"
           android:title="@string/item_serializable"
     />
+    <item android:id="@+id/item_refresh"
+          android:icon="@mipmap/mm1"
+          android:showAsAction="ifRoom"
+          android:title="@string/item_refresh"
+    />
 </menu>

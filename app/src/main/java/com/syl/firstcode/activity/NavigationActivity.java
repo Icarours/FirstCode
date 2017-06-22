@@ -14,7 +14,12 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.syl.firstcode.R;
-
+/**
+ * author   Bright
+ * date     2017/6/22 20:13
+ * desc
+ * 导航Activity
+ */
 public class NavigationActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 

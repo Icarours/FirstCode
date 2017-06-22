@@ -34,4 +34,5 @@
     <string name="btn_intent_service">intent_service</string>
     <string name="btn_intent_activity">intent_activity</string>
     <string name="btn_intent_receiver">intent_receiver</string>
+    <string name="item_refresh">刷新</string>
 </resources>

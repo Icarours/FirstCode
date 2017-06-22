@@ -65,7 +65,14 @@
             android:name=".activity.ShowMeActivity"
             android:theme="@style/Transparent">
         </activity>
-        <activity android:name=".activity.Main2Activity">
+        <!--测试用Activity-->
+        <activity android:name=".activity.Main2Activity"
+        android:theme="@style/Fullscreen">
+            <!--<intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>-->
         </activity>
     </application>
 
