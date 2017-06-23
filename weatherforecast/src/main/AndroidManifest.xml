@@ -18,8 +18,7 @@
             </intent-filter>
         </activity>
         <!--测试用Activity-->
-        <activity android:name=".activity.Main2Activity"
-                  android:theme="@style/MyFullscreen">
+        <activity android:name=".activity.Main2Activity">
             <!--<intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

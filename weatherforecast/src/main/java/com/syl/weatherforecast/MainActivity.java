@@ -22,6 +22,12 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
+/**
+ * author   Bright
+ * date     2017/6/23 0:26
+ * desc
+ * 天气预报的主界面
+ */
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -68,43 +74,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 final String mPicUrl2 = response.body().string();
-                SharedPreferences.Editor edit = preferences.edit();
+                SharedPreferences.Editor edit = preferences.edit();//存缓存
                 edit.putString("mPicUrl", mPicUrl2);
                 edit.apply();
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         Glide.with(MainActivity.this).load(mPicUrl2).into(mIvContent);
-                    }
-                });
-            }
-        });
-//        String mPicUrl = preferences.getString("mPicUrl", null);
-//        if (mPicUrl != null) {
-//            Glide.with(this).load(mPicUrl).into(mIvContent);
-//        } else {
-//            loadPic(picUrl);
-//        }
-    }
-
-    private void loadPic(final String picUrl) {
-        OkHttpClient okHttpClient = new OkHttpClient();
-        Request request = new Request.Builder()
-                .url(picUrl)
-                .build();
-        okHttpClient.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                final String pic = response.body().string();
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Glide.with(MainActivity.this).load(pic).into(mIvContent);
                     }
                 });
             }

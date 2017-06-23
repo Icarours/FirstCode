@@ -1,12 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.syl.weatherforecast.activity.Main2Activity">
-    <ImageView android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:src="@mipmap/mm2"/>
-</android.support.constraint.ConstraintLayout>
+    <TextView android:id="@+id/tv_aqi"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="aqi"/>
+    <TextView android:id="@+id/tv_basic"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="basic"/>
+    <TextView android:id="@+id/tv_daily_forecast"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="daily_forecast"/>
+    <TextView android:id="@+id/tv_hourly_forecast"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="hourly_forecast"/>
+    <TextView android:id="@+id/tv_now"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="now"/>
+    <TextView android:id="@+id/tv_status"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="status"/>
+    <TextView android:id="@+id/tv_suggestion"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="suggestion"/>
+</LinearLayout>
