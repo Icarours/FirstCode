@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal" tools:showIn="@layout/content_daily_forecast">
+    <TextView android:id="@+id/tv_date3"
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_weight="2"
+              android:text="date3"
+              android:textSize="20sp"/>
+    <TextView android:id="@+id/tv_cnod3"
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_weight="1"
+              android:text="cnod天气3"
+              android:textSize="20sp"/>
+    <TextView android:id="@+id/tv_tmp_max3"
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_weight="1"
+              android:text="tmp_max3"
+              android:textSize="20sp"/>
+    <TextView android:id="@+id/tmp_min3"
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_weight="1"
+              android:text="tmp_min3"
+              android:textSize="20sp"/>
+    <TextView android:id="@+id/tv_wind3"
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_weight="1"
+              android:text="风力3"
+              android:textSize="20sp"/>
+</LinearLayout>

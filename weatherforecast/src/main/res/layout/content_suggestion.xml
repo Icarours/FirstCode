@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="#88897705"
+              android:orientation="vertical" tools:showIn="@layout/fragment_content">
+    <TextView android:id="@+id/tv_suggestion"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="@string/suggestion"
+              android:textSize="25sp"/>
+    <TextView android:id="@+id/tv_comf"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="3dp"
+              android:scrollbars="vertical"
+              android:text="comf"/>
+    <TextView android:id="@+id/tv_cw"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="3dp"
+              android:scrollbars="vertical"
+              android:text="cw"/>
+    <TextView android:id="@+id/tv_drsg"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="3dp"
+              android:scrollbars="vertical"
+              android:text="drsg"/>
+    <TextView android:id="@+id/tv_flu"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="3dp"
+              android:scrollbars="vertical"
+              android:text="flu"/>
+    <TextView android:id="@+id/tv_sport"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="3dp"
+              android:scrollbars="vertical"
+              android:text="sport"/>
+    <TextView android:id="@+id/tv_trav"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="3dp"
+              android:scrollbars="vertical"
+              android:text="trav"/>
+    <TextView android:id="@+id/tv_uv"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="3dp"
+              android:scrollbars="vertical"
+              android:text="uv"/>
+</LinearLayout>

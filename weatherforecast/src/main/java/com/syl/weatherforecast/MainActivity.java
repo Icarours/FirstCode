@@ -43,11 +43,14 @@ public class MainActivity extends AppCompatActivity {
                     | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
             getWindow().setStatusBarColor(Color.TRANSPARENT);
         }
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main);//根布局使用FrameLayout,如此才能做出层次透明的效果
 
         initView();
     }
 
+    /**
+     * 主体内容使用Fragment来展示
+     */
     private void initView() {
         updatePic();
         mIvContent = (ImageView) findViewById(R.id.iv_content);
@@ -58,6 +61,9 @@ public class MainActivity extends AppCompatActivity {
         transaction.commit();
     }
 
+    /**
+     * 加载背景图片
+     */
     private void updatePic() {
         final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         String picUrl = "http://guolin.tech/api/bing_pic";

@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">酷欧天气</string>
+    <string name="daily_forecast">每日预报</string>
+    <string name="hourly_forecast">每小时预报</string>
+    <string name="now">即时预报</string>
+    <string name="suggestion">建议</string>
 </resources>
