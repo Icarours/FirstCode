@@ -1,5 +1,6 @@
 package com.syl.weatherforecast;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
@@ -8,10 +9,13 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.syl.weatherforecast.activity.ChooseProvinceActivity;
 import com.syl.weatherforecast.fragment.ContentFragment;
 
 import java.io.IOException;
@@ -45,7 +49,17 @@ public class MainActivity extends AppCompatActivity {
         }
         setContentView(R.layout.activity_main);//根布局使用FrameLayout,如此才能做出层次透明的效果
 
+//        Intent intent = new Intent(this, WeatherService.class);
+//        startService(intent);
+
         initView();
+        findViewById(R.id.btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ChooseProvinceActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     /**
@@ -91,5 +105,29 @@ public class MainActivity extends AppCompatActivity {
                 });
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.item_choose_city:
+                Intent intent = new Intent(this, ChooseProvinceActivity.class);
+                startActivity(intent);
+                break;
+            default:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

@@ -57,7 +57,7 @@ public class AlarmFragment extends BaseFragment implements View.OnClickListener 
     }
 
     /**
-     * 发送alarm机制的Service,定时或者启动一个Service
+     * 发送alarm机制的Service,定时或者即时启动一个Service
      */
     private void alarmService() {
         Intent intent = new Intent(getContext(), AlarmService.class);
@@ -69,7 +69,7 @@ public class AlarmFragment extends BaseFragment implements View.OnClickListener 
     }
 
     /**
-     * 发送alarm机制的广播,定时或者发送一个广播
+     * 发送alarm机制的广播,定时或者即时发送一个广播
      */
     private void alarmReceiver() {
         Intent intent = new Intent("MY_RECEIVER_CLOCK");

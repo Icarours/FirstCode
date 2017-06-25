@@ -1,8 +1,14 @@
 package com.syl.weatherforecast.fragment;
 
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.SystemClock;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -93,6 +99,7 @@ public class ContentFragment extends Fragment {
     private TextView mTvSport;
     private TextView mTvTrav;
     private TextView mTvUv;
+    private SharedPreferences mPreferences;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -107,12 +114,34 @@ public class ContentFragment extends Fragment {
         mRootView = inflater.inflate(R.layout.fragment_content, container, false);
         initView();
 
+        //使用Preference存储数据
+        mPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+
         ButterKnife.bind(this, mRootView);//跟Activity的用法一样,不过要指定绑定的视图mRootView
+
         initData();
         return mRootView;
     }
 
     private void initView() {
+        final SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout) mRootView.findViewById(R.id.srl);
+        //设置下拉背景颜色
+        swipeRefreshLayout.setProgressBackgroundColorSchemeColor(Color.WHITE);
+        //设置进度条颜色
+        swipeRefreshLayout.setColorSchemeResources(R.color.colorAccent, R.color.colorPrimary, R.color.colorPrimaryDark);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        initData();
+                        //刷新完毕,收起刷新状态
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                }, 1200);
+            }
+        });
         //now
         mTvCnodTxt = (TextView) mRootView.findViewById(R.id.tv_cnod_txt);
         mTvTmp = (TextView) mRootView.findViewById(R.id.tv_tmp);
@@ -176,101 +205,129 @@ public class ContentFragment extends Fragment {
         mTvUv.setMovementMethod(ScrollingMovementMethod.getInstance());
     }
 
+    /**
+     * 初始化数据
+     */
     private void initData() {
-        String url = "http://guolin.tech/api/weather?cityid=CN101190401&key=e9d466dcc631437c9d49dafcb6b8fc20";
-        OkHttpClient okHttpClient = new OkHttpClient();
-        Request request = new Request.Builder()
-                .url(url)
-                .build();
-        okHttpClient.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                LogUtil.d(TAG, e.toString());
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                LogUtil.d(TAG, response.toString());
+        if (mPreferences != null) {//如果mPreferences
+            String dataResponse = mPreferences.getString("dataResponse", null);
+            long currentTime = mPreferences.getLong("currentTime", 0);
+            long intervalTime = SystemClock.currentThreadTimeMillis() - currentTime;
+            LogUtil.d(TAG, "intervalTime==" + intervalTime);
+            if (dataResponse != null && intervalTime < 1000 * 5) {//如果dataResponse存在(如果内存中有数据)
                 try {
-                    String responsStr = response.body().string();
-                    JSONObject jsonObject = new JSONObject(responsStr);
-                    JSONArray jsonArray = jsonObject.getJSONArray("HeWeather");
-                    String jsonString = jsonArray.getJSONObject(0).toString();
-                    Gson gson = new Gson();
-                    mWeather = gson.fromJson(jsonString, HeWeather.class);
-                    LogUtil.d(TAG, mWeather.toString());
+                    handleResponseStr(dataResponse);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                getActivity().runOnUiThread(new Runnable() {
+            } else {
+                //从ChooseCountyActivity拿到weatherId
+                String weatherId = getActivity().getIntent().getStringExtra("weatherId");
+                // TODO: 2017/6/25
+//                String url = "http://guolin.tech/api/weather?cityid=CN101190401&key=e9d466dcc631437c9d49dafcb6b8fc20";
+                String url = "http://guolin.tech/api/weather?cityid="+weatherId+"&key=e9d466dcc631437c9d49dafcb6b8fc20";
+                OkHttpClient okHttpClient = new OkHttpClient();
+                final Request request = new Request.Builder()
+                        .url(url)
+                        .build();
+                okHttpClient.newCall(request).enqueue(new Callback() {
                     @Override
-                    public void run() {
-                        //now
-                        // mTvNow.setText(mWeather.getNow().toString());
-                        mTvCnodTxt.setText(mWeather.getNow().getCond().getTxt());
-                        mTvTmp.setText(mWeather.getNow().getTmp());
-                        mTvWind.setText(mWeather.getNow().getWind().getDir());
+                    public void onFailure(Call call, IOException e) {
+                        LogUtil.d(TAG, e.toString());
+                    }
 
-                        //basic
-                        //mTvBasic.setText(mWeather.getBasic().toString());
-                        mTvBasicCity.setText(mWeather.getBasic().getCity());
-                        mTvBasicUpdateTime.setText(mWeather.getBasic().getUpdate().getLoc());
-
-                        //DailyForecast
-                        //mTvDailyForecast.setText(mWeather.getDaily_forecast().toString());
-                        mTvDate1.setText(mWeather.getDaily_forecast().get(0).getDate());
-                        mTvCnod1.setText(mWeather.getDaily_forecast().get(0).getCond().getTxt_d());
-                        mTvTmpMax1.setText(mWeather.getDaily_forecast().get(0).getTmp().getMax());
-                        mTvTemMin1.setText(mWeather.getDaily_forecast().get(0).getTmp().getMin());
-                        mTvWind1.setText(mWeather.getDaily_forecast().get(0).getWind().getDir());
-
-                        mTvDate2.setText(mWeather.getDaily_forecast().get(1).getDate());
-                        mTvCnod2.setText(mWeather.getDaily_forecast().get(1).getCond().getTxt_d());
-                        mTvTmpMax2.setText(mWeather.getDaily_forecast().get(1).getTmp().getMax());
-                        mTvTemMin2.setText(mWeather.getDaily_forecast().get(1).getTmp().getMin());
-                        mTvWind2.setText(mWeather.getDaily_forecast().get(1).getWind().getDir());
-
-                        mTvDate3.setText(mWeather.getDaily_forecast().get(2).getDate());
-                        mTvCnod3.setText(mWeather.getDaily_forecast().get(2).getCond().getTxt_d());
-                        mTvTmpMax3.setText(mWeather.getDaily_forecast().get(2).getTmp().getMax());
-                        mTvTemMin3.setText(mWeather.getDaily_forecast().get(2).getTmp().getMin());
-                        mTvWind3.setText(mWeather.getDaily_forecast().get(2).getWind().getDir());
-
-                        //HourlyForecast
-                        //mTvHourlyForecast.setText(mWeather.getHourly_forecast().toString());
-                        mTvHourlyDate1.setText(mWeather.getHourly_forecast().get(0).getDate().substring(5, 16));
-                        mTvHourlyCnod1.setText(mWeather.getHourly_forecast().get(0).getCond().getTxt());
-                        mTvHourlyTmp1.setText(mWeather.getHourly_forecast().get(0).getTmp());
-                        mTvHourlyWind1.setText(mWeather.getHourly_forecast().get(0).getWind().getDir());
-
-                        mTvHourlyDate2.setText(mWeather.getHourly_forecast().get(1).getDate().substring(5, 16));
-                        mTvHourlyCnod2.setText(mWeather.getHourly_forecast().get(1).getCond().getTxt());
-                        mTvHourlyTmp2.setText(mWeather.getHourly_forecast().get(1).getTmp());
-                        mTvHourlyWind2.setText(mWeather.getHourly_forecast().get(1).getWind().getDir());
-
-                        //status
-                        mTvStatus.setText(mWeather.getStatus());
-
-                        //aqi
-                        //mTvAqi.setText(mWeather.getAqi().toString());
-                        mTvAqiTxt.setText("Aqi:" + mWeather.getAqi().getCity().getAqi());
-                        mTvAqiQlty.setText("Qlty.:" + mWeather.getAqi().getCity().getQlty());
-                        mTvAqiPm10.setText("Pm10:" + mWeather.getAqi().getCity().getPm10());
-                        mTvAqiPm25.setText("Pm25:" + mWeather.getAqi().getCity().getPm25());
-
-                        //suggestion
-                        //mTvSuggestion.setText(mWeather.getSuggestion().toString());
-                        mTvComf.setText(mWeather.getSuggestion().getComf().getBrf() + ":" + mWeather.getSuggestion().getComf().getTxt());
-                        mTvCw.setText(mWeather.getSuggestion().getCw().getBrf() + ":" + mWeather.getSuggestion().getCw().getTxt());
-                        mTvDrsg.setText(mWeather.getSuggestion().getDrsg().getBrf() + ":" + mWeather.getSuggestion().getDrsg().getTxt());
-                        mTvFlu.setText(mWeather.getSuggestion().getFlu().getBrf() + ":" + mWeather.getSuggestion().getFlu().getTxt());
-                        mTvSport.setText(mWeather.getSuggestion().getSport().getBrf() + ":" + mWeather.getSuggestion().getSport().getTxt());
-                        mTvTrav.setText(mWeather.getSuggestion().getTrav().getBrf() + ":" + mWeather.getSuggestion().getTrav().getTxt());
-                        mTvUv.setText(mWeather.getSuggestion().getUv().getBrf() + ":" + mWeather.getSuggestion().getUv().getTxt());
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        LogUtil.d(TAG, response.toString());
+                        try {
+                            String responsStr = response.body().string();
+                            //存缓存
+                            SharedPreferences.Editor edit = mPreferences.edit();
+                            edit.putString("dataResponse", responsStr);
+                            long currentThreadTimeMillis = SystemClock.currentThreadTimeMillis();
+                            edit.putLong("currentTime", currentThreadTimeMillis);
+                            edit.apply();
+                            handleResponseStr(responsStr);
+                            LogUtil.d(TAG, mWeather.toString());
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 });
             }
-        });
+        }
+
+        //数据和视图的绑定
+        //now
+        // mTvNow.setText(mWeather.getNow().toString());
+        mTvCnodTxt.setText(mWeather.getNow().getCond().getTxt());
+        mTvTmp.setText(mWeather.getNow().getTmp());
+        mTvWind.setText(mWeather.getNow().getWind().getDir());
+
+        //basic
+        //mTvBasic.setText(mWeather.getBasic().toString());
+        mTvBasicCity.setText(mWeather.getBasic().getCity());
+        mTvBasicUpdateTime.setText(mWeather.getBasic().getUpdate().getLoc());
+
+        //DailyForecast
+        //mTvDailyForecast.setText(mWeather.getDaily_forecast().toString());
+        mTvDate1.setText(mWeather.getDaily_forecast().get(0).getDate());
+        mTvCnod1.setText(mWeather.getDaily_forecast().get(0).getCond().getTxt_d());
+        mTvTmpMax1.setText(mWeather.getDaily_forecast().get(0).getTmp().getMax());
+        mTvTemMin1.setText(mWeather.getDaily_forecast().get(0).getTmp().getMin());
+        mTvWind1.setText(mWeather.getDaily_forecast().get(0).getWind().getDir());
+
+        mTvDate2.setText(mWeather.getDaily_forecast().get(1).getDate());
+        mTvCnod2.setText(mWeather.getDaily_forecast().get(1).getCond().getTxt_d());
+        mTvTmpMax2.setText(mWeather.getDaily_forecast().get(1).getTmp().getMax());
+        mTvTemMin2.setText(mWeather.getDaily_forecast().get(1).getTmp().getMin());
+        mTvWind2.setText(mWeather.getDaily_forecast().get(1).getWind().getDir());
+
+        mTvDate3.setText(mWeather.getDaily_forecast().get(2).getDate());
+        mTvCnod3.setText(mWeather.getDaily_forecast().get(2).getCond().getTxt_d());
+        mTvTmpMax3.setText(mWeather.getDaily_forecast().get(2).getTmp().getMax());
+        mTvTemMin3.setText(mWeather.getDaily_forecast().get(2).getTmp().getMin());
+        mTvWind3.setText(mWeather.getDaily_forecast().get(2).getWind().getDir());
+
+        //HourlyForecast
+        //mTvHourlyForecast.setText(mWeather.getHourly_forecast().toString());
+        mTvHourlyDate1.setText(mWeather.getHourly_forecast().get(0).getDate().substring(5, 16));
+        mTvHourlyCnod1.setText(mWeather.getHourly_forecast().get(0).getCond().getTxt());
+        mTvHourlyTmp1.setText(mWeather.getHourly_forecast().get(0).getTmp());
+        mTvHourlyWind1.setText(mWeather.getHourly_forecast().get(0).getWind().getDir());
+
+        mTvHourlyDate2.setText(mWeather.getHourly_forecast().get(1).getDate().substring(5, 16));
+        mTvHourlyCnod2.setText(mWeather.getHourly_forecast().get(1).getCond().getTxt());
+        mTvHourlyTmp2.setText(mWeather.getHourly_forecast().get(1).getTmp());
+        mTvHourlyWind2.setText(mWeather.getHourly_forecast().get(1).getWind().getDir());
+
+        //status
+        mTvStatus.setText(mWeather.getStatus());
+
+        //aqi
+        //mTvAqi.setText(mWeather.getAqi().toString());
+        mTvAqiTxt.setText("Aqi:" + mWeather.getAqi().getCity().getAqi());
+        mTvAqiQlty.setText("Qlty.:" + mWeather.getAqi().getCity().getQlty());
+        mTvAqiPm10.setText("Pm10:" + mWeather.getAqi().getCity().getPm10());
+        mTvAqiPm25.setText("Pm25:" + mWeather.getAqi().getCity().getPm25());
+
+        //suggestion
+        //mTvSuggestion.setText(mWeather.getSuggestion().toString());
+        mTvComf.setText(mWeather.getSuggestion().getComf().getBrf() + ":" + mWeather.getSuggestion().getComf().getTxt());
+        mTvCw.setText(mWeather.getSuggestion().getCw().getBrf() + ":" + mWeather.getSuggestion().getCw().getTxt());
+        mTvDrsg.setText(mWeather.getSuggestion().getDrsg().getBrf() + ":" + mWeather.getSuggestion().getDrsg().getTxt());
+        mTvFlu.setText(mWeather.getSuggestion().getFlu().getBrf() + ":" + mWeather.getSuggestion().getFlu().getTxt());
+        mTvSport.setText(mWeather.getSuggestion().getSport().getBrf() + ":" + mWeather.getSuggestion().getSport().getTxt());
+        mTvTrav.setText(mWeather.getSuggestion().getTrav().getBrf() + ":" + mWeather.getSuggestion().getTrav().getTxt());
+        mTvUv.setText(mWeather.getSuggestion().getUv().getBrf() + ":" + mWeather.getSuggestion().getUv().getTxt());
+    }
+
+    private void handleResponseStr(String responsStr) throws JSONException {
+        JSONObject jsonObject = new JSONObject(responsStr);
+        JSONArray jsonArray = jsonObject.getJSONArray("HeWeather");
+        String jsonString = jsonArray.getJSONObject(0).toString();
+        Gson gson = new Gson();
+        mWeather = gson.fromJson(jsonString, HeWeather.class);
     }
 
     @Override

@@ -22,6 +22,7 @@ import java.util.Random;
  * author   Bright
  * date     2017/6/22 20:13
  * desc
+ * swipeRefreshLayout控件只能有一个子控件
  * swipeRefreshLayout举例,下拉刷新和上拉加载更多(上拉加载更多稍后再说)
  */
 public class RefreshActivity extends AppCompatActivity {

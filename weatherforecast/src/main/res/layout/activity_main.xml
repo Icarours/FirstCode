@@ -4,14 +4,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+    <android.support.v4.widget.DrawerLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView android:id="@+id/iv_content"
+                   android:layout_width="match_parent"
+                   android:layout_height="match_parent"
+                   android:scaleType="centerCrop"
+                   android:src="@mipmap/mm2"/>
 
-    <ImageView android:id="@+id/iv_content"
-               android:scaleType="centerCrop"
-               android:layout_width="match_parent"
-               android:layout_height="match_parent"
-               android:src="@mipmap/mm2"/>
+        <FrameLayout android:id="@+id/fl_content"
+                     android:layout_width="match_parent"
+                     android:layout_height="match_parent"/>
+        <!--<ListView android:id="@+id/lv_province"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_gravity="start"/>-->
+        <Button android:id="@+id/btn"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:text="tv"/>
+    </android.support.v4.widget.DrawerLayout>
 
-    <FrameLayout android:id="@+id/fl_content"
-                 android:layout_width="match_parent"
-                 android:layout_height="match_parent"/>
 </FrameLayout>

@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.syl.weatherforecast">
+
     <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:name="org.litepal.LitePalApplication"
         android:allowBackup="true"
@@ -11,19 +13,43 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
+
+            <!--
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+            -->
+        </activity>
+        <!-- 测试用Activity -->
+        <activity android:name=".activity.Main2Activity">
+
+            <!--
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+            -->
+        </activity>
+
+        <service
+            android:name=".service.WeatherService"
+            android:enabled="true"
+            android:exported="true">
+        </service>
+
+        <activity android:name=".activity.ChooseProvinceActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <!--测试用Activity-->
-        <activity android:name=".activity.Main2Activity">
-            <!--<intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>-->
+        <activity android:name=".activity.ChooseCityActivity">
+        </activity>
+        <activity android:name=".activity.ChooseCountyActivity">
         </activity>
     </application>
 
