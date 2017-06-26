@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -87,6 +88,7 @@ public class ContentFragment extends Fragment {
     private DailyForecastAdapter mDailyForecastAdapter;
     private HourlyForecastAdapter mHourlyForecastAdapter;
     private Weather.HeWeatherBean mHeWeather;
+    private RelativeLayout mRlAqi;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -110,7 +112,11 @@ public class ContentFragment extends Fragment {
         return mRootView;
     }
 
+    /**
+     * 初始化视图
+     */
     private void initView() {
+        mRlAqi = (RelativeLayout) mRootView.findViewById(R.id.rl_aqi);//aqi的根布局
         final SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout) mRootView.findViewById(R.id.srl);
         //设置下拉背景颜色
         swipeRefreshLayout.setProgressBackgroundColorSchemeColor(Color.WHITE);
@@ -265,17 +271,17 @@ public class ContentFragment extends Fragment {
         //status
         mTvStatus.setText(mHeWeather.getStatus());
 
-        //aqi
-        Weather.HeWeatherBean.AqiBean.CityBean city = mHeWeather.getAqi().getCity();
-        LogUtil.d(TAG,mHeWeather.toString());
-        LogUtil.d(TAG,city.toString());
-        if (city != null) {
-            mTvAqiTxt.setText("Aqi:" + city.getAqi());
-            mTvAqiQlty.setText("Qlty.:" + city.getQlty());
-            mTvAqiPm10.setText("Pm10:" + city.getPm10());
-            mTvAqiPm25.setText("Pm25:" + city.getPm25());
-        } else {
-            mTvAqi.setText(mHeWeather.getAqi().toString());
+        //aqi,有的城市的返回数据没有aqi这一项
+        Weather.HeWeatherBean.AqiBean aqi = mHeWeather.getAqi();
+        LogUtil.d(TAG, mHeWeather.toString());
+        if (aqi != null) {//如果解析出来的数据有aqi这一项
+            mTvAqiTxt.setText("Aqi:" + aqi.getCity().getAqi());
+            mTvAqiQlty.setText("Qlty.:" + aqi.getCity().getQlty());
+            mTvAqiPm10.setText("Pm10:" + aqi.getCity().getPm10());
+            mTvAqiPm25.setText("Pm25:" + aqi.getCity().getPm25());
+        } else {//如果解析出来的数据没有aqi这一项
+//            mTvAqi.setText("aqi");
+            mRlAqi.setVisibility(View.GONE);
         }
 
         //suggestion

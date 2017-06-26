@@ -5,6 +5,7 @@
                 android:layout_height="wrap_content"
                 android:background="#660769af"
                 android:orientation="vertical"
+                android:id="@+id/rl_aqi"
                 tools:showIn="@layout/fragment_content">
     <TextView android:id="@+id/tv_aqi"
               android:layout_width="wrap_content"
