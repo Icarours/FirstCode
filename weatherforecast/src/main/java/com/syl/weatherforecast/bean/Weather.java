@@ -123,7 +123,7 @@ public class Weather {
                  * so2 : 6
                  */
 
-                private String aqi;
+                private String aqi;//为了和钱两级的aqi区别,将aqi改为aqiCity
                 private String co;
                 private String no2;
                 private String o3;

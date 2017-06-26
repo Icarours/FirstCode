@@ -6,7 +6,7 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.syl.weatherforecast.R;
-import com.syl.weatherforecast.bean.HeWeather;
+import com.syl.weatherforecast.bean.Weather;
 import com.syl.weatherforecast.utils.LogUtil;
 
 import org.json.JSONArray;
@@ -48,8 +48,8 @@ public class Main2Activity extends AppCompatActivity {
     TextView mTvStatus;
     @BindView(R.id.tv_suggestion)
     TextView mTvSuggestion;
-    private List<HeWeather> mHeWeatherList = new ArrayList<>();
-    private HeWeather mWeather;
+    private List<Weather.HeWeatherBean> mHeWeatherList = new ArrayList<>();
+    private Weather.HeWeatherBean mHeWeatherBean;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,21 +88,21 @@ public class Main2Activity extends AppCompatActivity {
                     JSONArray jsonArray = jsonObject.getJSONArray("HeWeather");
                     String jsonString = jsonArray.getJSONObject(0).toString();
                     Gson gson = new Gson();
-                    mWeather = gson.fromJson(jsonString, HeWeather.class);
-                    LogUtil.d(TAG, mWeather.toString());
+                    mHeWeatherBean = gson.fromJson(jsonString, Weather.HeWeatherBean.class);
+                    LogUtil.d(TAG, mHeWeatherBean.toString());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        mTvAqi.setText(mWeather.getAqi().toString());
-                        mTvBasic.setText(mWeather.getBasic().toString());
-                        mTvDailyForecast.setText(mWeather.getDaily_forecast().toString());
-                        mTvHourlyForecast.setText(mWeather.getHourly_forecast().toString());
-                        mTvNow.setText(mWeather.getNow().toString());
-                        mTvStatus.setText(mWeather.getStatus());
-                        mTvSuggestion.setText(mWeather.getSuggestion().toString());
+                        mTvAqi.setText(mHeWeatherBean.getAqi().toString());
+                        mTvBasic.setText(mHeWeatherBean.getBasic().toString());
+                        mTvDailyForecast.setText(mHeWeatherBean.getDaily_forecast().toString());
+                        mTvHourlyForecast.setText(mHeWeatherBean.getHourly_forecast().toString());
+                        mTvNow.setText(mHeWeatherBean.getNow().toString());
+                        mTvStatus.setText(mHeWeatherBean.getStatus());
+                        mTvSuggestion.setText(mHeWeatherBean.getSuggestion().toString());
                     }
                 });
             }

@@ -4,4 +4,6 @@
     <string name="hourly_forecast">每小时预报</string>
     <string name="now">即时预报</string>
     <string name="suggestion">建议</string>
+    <string name="drawer_open">open</string>
+    <string name="drawer_close">close</string>
 </resources>

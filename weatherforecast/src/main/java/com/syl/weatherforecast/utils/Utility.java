@@ -3,7 +3,7 @@ package com.syl.weatherforecast.utils;
 import android.text.TextUtils;
 
 import com.google.gson.Gson;
-import com.syl.weatherforecast.bean.HeWeather;
+import com.syl.weatherforecast.bean.Weather;
 import com.syl.weatherforecast.db.City;
 import com.syl.weatherforecast.db.County;
 import com.syl.weatherforecast.db.Province;
@@ -104,13 +104,13 @@ public class Utility {
      * @param weatherString
      * @return
      */
-    public static HeWeather handleWeatherResponse(String weatherString) {
+    public static Weather.HeWeatherBean handleWeatherResponse(String weatherString) {
         try {
             JSONObject jsonObject = new JSONObject(weatherString);
             JSONArray jsonArray = jsonObject.getJSONArray("HeWeather");
             String jsonString = jsonArray.getJSONObject(0).toString();
             Gson gson = new Gson();
-            return gson.fromJson(jsonString, HeWeather.class);
+            return gson.fromJson(jsonString, Weather.HeWeatherBean.class);
         } catch (JSONException e) {
             e.printStackTrace();
         }

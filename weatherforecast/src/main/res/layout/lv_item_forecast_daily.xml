@@ -3,28 +3,34 @@
               xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:orientation="horizontal" tools:showIn="@layout/content_daily_forecast">
-    <TextView android:id="@+id/tv_hourly_date2"
+    <TextView android:id="@+id/tv_date_daily"
               android:layout_width="0dp"
               android:layout_height="wrap_content"
               android:layout_weight="2"
-              android:text="date2"
+              android:text="date"
               android:textSize="20sp"/>
-    <TextView android:id="@+id/tv_hourly_cnod2"
+    <TextView android:id="@+id/tv_cnod_daily"
               android:layout_width="0dp"
               android:layout_height="wrap_content"
               android:layout_weight="1"
-              android:text="cnod天气2"
+              android:text="cnod天气"
               android:textSize="20sp"/>
-    <TextView android:id="@+id/tv_hourly_tmp2"
+    <TextView android:id="@+id/tv_tmp_max_daily"
               android:layout_width="0dp"
               android:layout_height="wrap_content"
               android:layout_weight="1"
-              android:text="tmp_max2"
+              android:text="tmp_max"
               android:textSize="20sp"/>
-    <TextView android:id="@+id/tv_hourly_wind2"
+    <TextView android:id="@+id/tv_tmp_min_daily"
               android:layout_width="0dp"
               android:layout_height="wrap_content"
               android:layout_weight="1"
-              android:text="风力2"
+              android:text="tmp_min"
+              android:textSize="20sp"/>
+    <TextView android:id="@+id/tv_wind_daily"
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_weight="1"
+              android:text="风力"
               android:textSize="20sp"/>
 </LinearLayout>

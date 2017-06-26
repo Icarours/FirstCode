@@ -9,7 +9,7 @@ import android.os.IBinder;
 import android.os.SystemClock;
 import android.preference.PreferenceManager;
 
-import com.syl.weatherforecast.bean.HeWeather;
+import com.syl.weatherforecast.bean.Weather;
 import com.syl.weatherforecast.utils.HttpUtil;
 import com.syl.weatherforecast.utils.LogUtil;
 import com.syl.weatherforecast.utils.Utility;
@@ -63,7 +63,7 @@ public class WeatherService extends Service {
         String weatherString = preferences.getString("weather", null);
         if (weatherString != null) {
             //有缓存是,直接解析数据
-            HeWeather heWeather = Utility.handleWeatherResponse(weatherString);
+            Weather.HeWeatherBean heWeather = Utility.handleWeatherResponse(weatherString);
             String weatherId = heWeather.getBasic().getId();
 //            String url = "http://guolin.tech/api/weather?weatherId="+cityId+"&key=e9d466dcc631437c9d49dafcb6b8fc20";
             String url = "http://guolin.tech/api/weather?weatherId=CN101190401&key=e9d466dcc631437c9d49dafcb6b8fc20";
@@ -76,7 +76,7 @@ public class WeatherService extends Service {
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
                     String stringResponse = response.body().string();
-                    HeWeather heWeather = Utility.handleWeatherResponse(stringResponse);
+                    Weather.HeWeatherBean heWeather = Utility.handleWeatherResponse(stringResponse);
                     String weatherId = heWeather.getBasic().getId();
                     if (heWeather != null && "ok".equals(heWeather.getStatus())) {
                         SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(WeatherService.this).edit();
